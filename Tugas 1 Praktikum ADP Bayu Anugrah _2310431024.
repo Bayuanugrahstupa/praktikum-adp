@@ -1,0 +1,130 @@
+Program Perkalian_Sederhana;
+Uses Crt;
+Var
+Angka1, angka2, hasil: integer;
+Nama: string;
+No_BP: LongInt;
+
+Begin
+Clrscr;
+
+Writeln(‘===========================================’);
+Writeln(‘         Program Perkalian Sederhana’);
+Writeln(‘===========================================’);
+Writeln;
+
+Write(‘Masukkan nama Anda: ‘);
+Readln(nama);
+
+Write(‘Masukkan nomor BP Anda: ‘);
+Readln(no_BP);
+
+Writeln;
+Writeln(‘Halo, ‘, nama, ‘no_BP: ‘,no_BP,);
+Writeln(‘Mari kita lakukan perkalian sederhana.’);
+Writeln;
+
+Write(‘Masukkan angka pertama: ‘);
+Readln(angka1);
+
+Write(‘Masukkan angka kedua: ‘);
+Readln(angka2);
+
+// Melakukan perkalian
+Hasil := angka1 * angka2;
+
+Writeln;
+Writeln(‘-------------------------------------------‘);
+Writeln(‘Hasil Perkalian:’);
+Writeln(‘Nama: ‘, nama);
+Writeln(‘Nomor BP: ‘, no_BP);
+Writeln(‘Hasil dari ‘, angka1, ‘ * ‘, angka2, ‘ adalah: ‘, hasil);
+Writeln(‘-------------------------------------------‘);
+  
+Readln;
+End.
+
+
+program Volume_Bola;
+
+uses
+crt;
+
+var
+
+jari_jari: real;
+volume: real;
+nama: string;
+no_BP: LongInt;
+  
+begin
+clrscr;
+
+writeln('===========================================');
+writeln('         Program Menghitung Volume Bola');
+writeln('===========================================');
+writeln;
+
+write('Masukkan nama Anda: ');
+readln(nama);
+
+write('Masukkan nomor BP Anda: ');
+readln(no_BP);
+
+writeln;
+writeln('Halo, ', nama, ' No. BP: ', no_BP);
+writeln('Mari kita hitung volume bola.');
+writeln;
+
+write('Masukkan jari-jari bola: ');
+readln(jari_jari);
+
+// Menghitung volume bola
+volume :=(4/3)*Pi*(jari_jari)*(jari_jari)*(jari_jari);
+
+writeln;
+writeln('-------------------------------------------');
+writeln('Hasil Perhitungan:');
+writeln('Nama: ', nama);
+writeln('Nomor BP: ', no_BP);
+writeln('Volume Bola adalah: ', volume:0:2);
+writeln('-------------------------------------------');
+
+
+program Luas_Permukaan_Balok;
+
+uses
+crt;
+
+var
+panjang, lebar, tinggi: real;
+luas_permukaan: real;
+nama: string;
+no_BP: integer;
+
+begin
+clrscr;
+writeln('Program Menghitung Luas Permukaan Balok');
+writeln;
+
+write('Masukkan panjang balok: ');
+readln(panjang);
+
+write('Masukkan lebar balok: ');
+readln(lebar);
+
+write('Masukkan tinggi balok: ');
+readln(tinggi);
+
+// Menghitung luas permukaan balok
+luas_permukaan := 2 * (panjang * lebar + panjang * tinggi + lebar * tinggi);
+
+writeln;
+writeln('Nama:’,nama); // Masukkan nama Anda di sini
+writeln('Nomor BP:’,no_BP); // Masukkan nomor BP Anda di sini
+writeln;
+
+writeln('Luas Permukaan Balok adalah: ', luas_permukaan:0:2);
+
+readln;
+end.
