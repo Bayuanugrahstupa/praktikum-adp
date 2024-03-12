@@ -1,0 +1,132 @@
+program RestaurantOrderingSystem;
+
+uses crt;
+
+var
+  choice, foodChoice, drinkChoice: integer;
+  qtyFood, qtyDrink: integer;
+  totalFood, totalDrink, totalOrder: real;
+
+begin
+  clrscr;
+  writeln('Jenis Pesanan:');
+  writeln('1. Makanan');
+  writeln('2. Minuman');
+  writeln('3. Makanan dan Minuman');
+  writeln;
+  write('Masukkan pilihan Anda: ');
+  readln(choice);
+
+  totalOrder := 0;
+
+  case choice of
+    1: begin
+         clrscr;
+         writeln('Menu Makanan:');
+         writeln('1. Nasi Goreng - Rp 15000');
+         writeln('2. Mie Goreng - Rp 12000');
+         writeln('3. Ayam Goreng - Rp 20000');
+         writeln;
+         write('Masukkan pilihan makanan Anda: ');
+         readln(foodChoice);
+         
+         write('Jumlah yang dipesan: ');
+         readln(qtyFood);
+
+         case foodChoice of
+           1: totalFood := qtyFood * 15000;
+           2: totalFood := qtyFood * 12000;
+           3: totalFood := qtyFood * 20000;
+           else writeln('Menu Makanan Tidak Valid');
+         end;
+
+         writeln;
+         writeln('Pesanan Anda:');
+         writeln('Makanan: ', qtyFood, ' porsi');
+         writeln('Total Harga Makanan: Rp ', totalFood:0:0);
+
+         totalOrder := totalFood;
+       end;
+    2: begin
+         clrscr;
+         writeln('Menu Minuman:');
+         writeln('1. Teh Manis - Rp 5000');
+         writeln('2. Kopi Hitam - Rp 7000');
+         writeln('3. Jus Jeruk - Rp 8000');
+         writeln;
+         write('Masukkan pilihan minuman Anda: ');
+         readln(drinkChoice);
+
+         write('Jumlah yang dipesan: ');
+         readln(qtyDrink);
+
+         case drinkChoice of
+           1: totalDrink := qtyDrink * 5000;
+           2: totalDrink := qtyDrink * 7000;
+           3: totalDrink := qtyDrink * 8000;
+           else writeln('Menu Minuman Tidak Valid');
+         end;
+
+         writeln;
+         writeln('Pesanan Anda:');
+         writeln('Minuman: ', qtyDrink, ' gelas');
+         writeln('Total Harga Minuman: Rp ', totalDrink:0:0);
+
+         totalOrder := totalDrink;
+       end;
+    3: begin
+         clrscr;
+         writeln('Menu Makanan:');
+         writeln('1. Nasi Goreng - Rp 15000');
+         writeln('2. Mie Goreng - Rp 12000');
+         writeln('3. Ayam Goreng - Rp 20000');
+         writeln;
+         write('Masukkan pilihan makanan Anda: ');
+         readln(foodChoice);
+
+         write('Jumlah makanan yang dipesan: ');
+         readln(qtyFood);
+
+         case foodChoice of
+           1: totalFood := qtyFood * 15000;
+           2: totalFood := qtyFood * 12000;
+           3: totalFood := qtyFood * 20000;
+           else writeln('Menu Makanan Tidak Valid');
+         end;
+
+         writeln;
+         writeln('Menu Minuman:');
+         writeln('1. Teh Manis - Rp 5000');
+         writeln('2. Kopi Hitam - Rp 7000');
+         writeln('3. Jus Jeruk - Rp 8000');
+         writeln;
+         write('Masukkan pilihan minuman Anda: ');
+         readln(drinkChoice);
+
+         write('Jumlah minuman yang dipesan: ');
+         readln(qtyDrink);
+
+         case drinkChoice of
+           1: totalDrink := qtyDrink * 5000;
+           2: totalDrink := qtyDrink * 7000;
+           3: totalDrink := qtyDrink * 8000;
+           else writeln('Menu Minuman Tidak Valid');
+         end;
+
+         writeln;
+         writeln('Pesanan Anda:');
+         writeln('Makanan: ', qtyFood, ' porsi');
+         writeln('Total Harga Makanan: Rp ', totalFood:0:0);
+         writeln('Minuman: ', qtyDrink, ' gelas');
+         writeln('Total Harga Minuman: Rp ', totalDrink:0:0);
+
+         totalOrder := totalFood + totalDrink;
+       end;
+    else writeln('Kode Pesanan Tidak Valid');
+  end;
+
+  if (choice >= 1) and (choice <= 3) then
+    writeln('Total Harga Pesanan: Rp ', totalOrder:0:0);
+
+  readln;
+end.
