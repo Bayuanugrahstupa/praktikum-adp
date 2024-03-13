@@ -1,132 +1,165 @@
-program RestaurantOrderingSystem;
+program Restoran;
 
 uses crt;
 
 var
-  choice, foodChoice, drinkChoice: integer;
-  qtyFood, qtyDrink: integer;
-  totalFood, totalDrink, totalOrder: real;
+  jenisPesanan, makanan, minuman: integer;
+  jumlahMakanan, jumlahMinuman: integer;
+  totalHarga: integer;
 
 begin
   clrscr;
+  
+  writeln('Selamat datang di Restoran Lapau Ganduik');
   writeln('Jenis Pesanan:');
   writeln('1. Makanan');
   writeln('2. Minuman');
   writeln('3. Makanan dan Minuman');
   writeln;
-  write('Masukkan pilihan Anda: ');
-  readln(choice);
-
-  totalOrder := 0;
-
-  case choice of
+  
+  write('Masukkan jenis pesanan (1-3): ');
+  readln(jenisPesanan);
+  
+  clrscr;
+  
+  case jenisPesanan of
     1: begin
-         clrscr;
          writeln('Menu Makanan:');
-         writeln('1. Nasi Goreng - Rp 15000');
-         writeln('2. Mie Goreng - Rp 12000');
-         writeln('3. Ayam Goreng - Rp 20000');
+         writeln('1. Sala Lauak');
+         writeln('2. Gulai Kapalo Lauak');
+         writeln('3. Lamang Tapai');
          writeln;
-         write('Masukkan pilihan makanan Anda: ');
-         readln(foodChoice);
          
-         write('Jumlah yang dipesan: ');
-         readln(qtyFood);
-
-         case foodChoice of
-           1: totalFood := qtyFood * 15000;
-           2: totalFood := qtyFood * 12000;
-           3: totalFood := qtyFood * 20000;
-           else writeln('Menu Makanan Tidak Valid');
+         write('Masukkan nomor makanan yang diinginkan (1-3): ');
+         readln(makanan);
+         
+         case makanan of
+           1: begin
+                writeln('Pesanan: Sala Lauak');
+                write('Jumlah: ');
+                readln(jumlahMakanan);
+                totalHarga := jumlahMakanan * 10000;
+              end;
+           2: begin
+                writeln('Pesanan: Gulai Kapalo Lauak');
+                write('Jumlah: ');
+                readln(jumlahMakanan);
+                totalHarga := jumlahMakanan * 45000;
+              end;
+           3: begin
+                writeln('Pesanan: Lamang Tapai');
+                write('Jumlah: ');
+                readln(jumlahMakanan);
+                totalHarga := jumlahMakanan * 8000;
+              end;
+           else
+             writeln('Kode Pesanan Tidak Valid');
          end;
-
-         writeln;
-         writeln('Pesanan Anda:');
-         writeln('Makanan: ', qtyFood, ' porsi');
-         writeln('Total Harga Makanan: Rp ', totalFood:0:0);
-
-         totalOrder := totalFood;
        end;
     2: begin
-         clrscr;
          writeln('Menu Minuman:');
-         writeln('1. Teh Manis - Rp 5000');
-         writeln('2. Kopi Hitam - Rp 7000');
-         writeln('3. Jus Jeruk - Rp 8000');
+         writeln('1. Teh Manis');
+         writeln('2. Jus Jeruk');
+         writeln('3. Kopi');
          writeln;
-         write('Masukkan pilihan minuman Anda: ');
-         readln(drinkChoice);
-
-         write('Jumlah yang dipesan: ');
-         readln(qtyDrink);
-
-         case drinkChoice of
-           1: totalDrink := qtyDrink * 5000;
-           2: totalDrink := qtyDrink * 7000;
-           3: totalDrink := qtyDrink * 8000;
-           else writeln('Menu Minuman Tidak Valid');
+         
+         write('Masukkan nomor minuman yang diinginkan (1-3): ');
+         readln(minuman);
+         
+         case minuman of
+           1: begin
+                writeln('Pesanan: Teh Talua');
+                write('Jumlah: ');
+                readln(jumlahMinuman);
+                totalHarga := jumlahMinuman * 5000;
+              end;
+           2: begin
+                writeln('Pesanan: Es Karambia Mudo');
+                write('Jumlah: ');
+                readln(jumlahMinuman);
+                totalHarga := jumlahMinuman * 8000;
+              end;
+           3: begin
+                writeln('Pesanan: Teh susu');
+                write('Jumlah: ');
+                readln(jumlahMinuman);
+                totalHarga := jumlahMinuman * 10000;
+              end;
+           else
+             writeln('Kode Pesanan Tidak Valid');
          end;
-
-         writeln;
-         writeln('Pesanan Anda:');
-         writeln('Minuman: ', qtyDrink, ' gelas');
-         writeln('Total Harga Minuman: Rp ', totalDrink:0:0);
-
-         totalOrder := totalDrink;
        end;
     3: begin
-         clrscr;
          writeln('Menu Makanan:');
-         writeln('1. Nasi Goreng - Rp 15000');
-         writeln('2. Mie Goreng - Rp 12000');
-         writeln('3. Ayam Goreng - Rp 20000');
+         writeln('1. Sala Lauak');
+         writeln('2. Gulai Kapalo Lauak');
+         writeln('3. Lamang Tapai');
          writeln;
-         write('Masukkan pilihan makanan Anda: ');
-         readln(foodChoice);
-
-         write('Jumlah makanan yang dipesan: ');
-         readln(qtyFood);
-
-         case foodChoice of
-           1: totalFood := qtyFood * 15000;
-           2: totalFood := qtyFood * 12000;
-           3: totalFood := qtyFood * 20000;
-           else writeln('Menu Makanan Tidak Valid');
-         end;
-
-         writeln;
+         
+         write('Masukkan nomor makanan yang diinginkan (1-3): ');
+         readln(makanan);
+         
          writeln('Menu Minuman:');
-         writeln('1. Teh Manis - Rp 5000');
-         writeln('2. Kopi Hitam - Rp 7000');
-         writeln('3. Jus Jeruk - Rp 8000');
+         writeln('1. Teh Talua');
+         writeln('2. Es Karambia Mudo');
+         writeln('3. Teh susu');
          writeln;
-         write('Masukkan pilihan minuman Anda: ');
-         readln(drinkChoice);
-
-         write('Jumlah minuman yang dipesan: ');
-         readln(qtyDrink);
-
-         case drinkChoice of
-           1: totalDrink := qtyDrink * 5000;
-           2: totalDrink := qtyDrink * 7000;
-           3: totalDrink := qtyDrink * 8000;
-           else writeln('Menu Minuman Tidak Valid');
+         
+         write('Masukkan nomor minuman yang diinginkan (1-3): ');
+         readln(minuman);
+         
+         case makanan of
+           1: begin
+                writeln('Pesanan Makanan: Sala Lauak');
+                write('Jumlah Makanan: ');
+                readln(jumlahMakanan);
+                totalHarga := jumlahMakanan * 10000;
+              end;
+           2: begin
+                writeln('Pesanan Makanan: Gulai Kapalo Lauak');
+                write('Jumlah Makanan: ');
+                readln(jumlahMakanan);
+                totalHarga := jumlahMakanan * 45000;
+              end;
+           3: begin
+                writeln('Pesanan Makanan: Lamang Tapai');
+                write('Jumlah Makanan: ');
+                readln(jumlahMakanan);
+                totalHarga := jumlahMakanan * 8000;
+              end;
+           else
+             writeln('Kode Pesanan Tidak Valid');
          end;
-
-         writeln;
-         writeln('Pesanan Anda:');
-         writeln('Makanan: ', qtyFood, ' porsi');
-         writeln('Total Harga Makanan: Rp ', totalFood:0:0);
-         writeln('Minuman: ', qtyDrink, ' gelas');
-         writeln('Total Harga Minuman: Rp ', totalDrink:0:0);
-
-         totalOrder := totalFood + totalDrink;
+         
+         case minuman of
+           1: begin
+                writeln('Pesanan Minuman: Teh Talua');
+                write('Jumlah Minuman: ');
+                readln(jumlahMinuman);
+                totalHarga := totalHarga + (jumlahMinuman * 5000);
+              end;
+           2: begin
+                writeln('Pesanan Minuman: Es Karambia Mudo');
+                write('Jumlah Minuman: ');
+                readln(jumlahMinuman);
+                totalHarga := totalHarga + (jumlahMinuman * 8000);
+              end;
+           3: begin
+                writeln('Pesanan Minuman: Teh susu');
+                write('Jumlah Minuman: ');
+                readln(jumlahMinuman);
+                totalHarga := totalHarga + (jumlahMinuman * 10000);
+              end;
+           else
+             writeln('Kode Pesanan Tidak Valid');
+         end;
        end;
-    else writeln('Kode Pesanan Tidak Valid');
+    else
+      writeln('Kode Pesanan Tidak Valid');
   end;
-
-  if (choice >= 1) and (choice <= 3) then
-    writeln('Total Harga Pesanan: Rp ', totalOrder:0:0);
-
+  
+  writeln;
+  writeln('Total Harga: Rp', totalHarga);
+  
   readln;
-end.
+end.          
