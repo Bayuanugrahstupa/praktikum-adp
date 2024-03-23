@@ -1,0 +1,41 @@
+program TabelPenjumlahanPerkalian;
+
+var
+  n, i, j: integer;
+
+begin
+  writeln('Program Menampilkan Tabel Penjumlahan dan Perkalian n x n');
+  writeln;
+
+  // Meminta pengguna untuk memasukkan nilai n
+  write('Masukkan nilai n (1-10): ');
+  readln(n);
+
+  // Validasi input n
+  if (n < 1) or (n > 10) then
+  begin
+    writeln('Masukkan tidak valid. Harap masukkan nilai n antara 1 dan 10.');
+    exit; // Keluar dari program jika input tidak valid
+  end;
+
+  // Tabel Penjumlahan
+  writeln('Tabel Penjumlahan ', n, ' x ', n, ':');
+  for i := 1 to n do
+  begin
+    for j := 1 to n do
+      write(i + j:4);
+    writeln;
+  end;
+
+  writeln;
+
+  // Tabel Perkalian
+  writeln('Tabel Perkalian ', n, ' x ', n, ':');
+  for i := 1 to n do
+  begin
+    for j := 1 to n do
+      write(i * j:4);
+    writeln;
+  end;
+
+end.
