@@ -1,0 +1,48 @@
+program PerfectNumber;
+function IsPerfect(n: integer): boolean;
+var
+  i, sum: integer;
+begin
+  sum := 0;
+  for i := 1 to n - 1 do
+    if n mod i = 0 then
+      sum := sum + i;
+  IsPerfect := (sum = n) and (n mod 2 <> 0);
+end;
+
+var
+  n: integer;
+begin
+  write('Masukkan bilangan bulat positif: ');
+  readln(n);
+  if IsPerfect(n) then
+    writeln(n, ' adalah bilangan sempurna dan bilangan ganjil.')
+  else
+    writeln(n, ' bukan bilangan sempurna atau bilangan genap.');
+end.
+
+
+program TrianglePattern;
+
+procedure PrintTriangle(height: integer);
+var
+  i, j: integer;
+begin
+  for i := 1 to height do
+  begin
+    for j := 1 to i do
+      write(j, ' ');
+    writeln;
+  end;
+end;
+
+var
+  height: integer;
+begin
+  write('Masukkan tinggi segitiga: ');
+  readln(height);
+  if height > 0 then
+    PrintTriangle(height)
+  else
+    writeln('Tinggi segitiga harus bilangan bulat positif.');
+end.
