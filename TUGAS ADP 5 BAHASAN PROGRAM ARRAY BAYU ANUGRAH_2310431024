@@ -1,0 +1,43 @@
+program CaesarCipher;
+
+var
+  k, i: Integer;
+  teks, teks_enkripsi: string;
+  alfabet: array[0..25] of Char;
+
+procedure InitializeAlfabet;
+var
+  i: Integer;
+begin
+  for i := 0 to 25 do
+    alfabet[i] := Chr(i + Ord('a'));
+end;
+
+function EnkripsiCaesar(k: Integer; teks: string): string;
+var
+  i, index: Integer;
+  c: Char;
+begin
+  teks_enkripsi := '';
+  for i := 1 to Length(teks) do
+  begin
+    c := teks[i];
+    if (c >= 'a') and (c <= 'z') then
+    begin
+      index := Ord(c) - Ord('a');
+      teks_enkripsi := teks_enkripsi + alfabet[(index + k) mod 26];
+    end
+    else
+      teks_enkripsi := teks_enkripsi + c;
+  end;
+end;
+
+begin
+  InitializeAlfabet;
+  Write('Masukkan nilai k: ');
+  Readln(k);
+  Write('Masukkan teks: ');
+  Readln(teks);
+  teks_enkripsi := EnkripsiCaesar(k, teks);
+  Writeln('Teks setelah enkripsi: ', teks_enkripsi);
+end.
