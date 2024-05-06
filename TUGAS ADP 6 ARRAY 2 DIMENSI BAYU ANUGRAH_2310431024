@@ -1,0 +1,56 @@
+# Flight schedule data
+flight_schedule = [
+    ["Jakarta", "Bandung", "08:00", "09:30"],
+    ["Jakarta", "Surabaya", "10:00", "12:00"],
+    ["Bandung", "Jakarta", "13:00", "14:30"],
+    ["Surabaya", "Jakarta", "15:00", "17:00"],
+    ["Jakarta", "Yogyakarta", "18:00", "20:00"],
+    ["Yogyakarta", "Jakarta", "21:00", "23:00"]
+]
+
+# Displaying the flight schedule in a table format
+print("Flight Schedule:")
+print("----------------")
+print("From\tTo\tDeparture\tArrival")
+print("----------------")
+for flight in flight_schedule:
+    print(f"{flight[0]}\t{flight[1]}\t{flight[2]}\t{flight[3]}")
+print("----------------")
+
+# Untuk menentukan rute tercepat 
+
+# Jadwal naik pesawat (data yang sama seperti di atas)
+jadwal_pesawat = [
+    ["Jakarta", "Bandung", "08:00", "09:30"],
+    ["Jakarta", "Surabaya", "10:00", "12:00"],
+    ["Bandung", "Jakarta", "13:00", "14:00"],
+    ["Bandung", "Surabaya", "15:00", "17:00"],
+    ["Surabaya", "Jakarta", "18:00", "20:00"],
+    ["Surabaya", "Bandung", "21:00", "23:00"]
+]
+
+# Inisialisasi variabel
+durasi_tercepat = float("inf")
+rute_tercepat = None
+
+# Perulangan melalui jadwal pesawat
+for rute in jadwal_pesawat:
+    # Cek apakah rute adalah rute langsung antara kota yang diberikan
+    if (rute[0] == "Jakarta" and rute[1] == "Surabaya") or (rute[0] == "Surabaya" and rute[1] == "Jakarta"):
+        # Hitung durasi rute
+        durasi = int(rute[3].split(":")[0]) * 60 + int(rute[3].split(":")[1])
+
+        # Cek apakah ini adalah rute tercepat
+        if durasi < durasi_tercepat:
+            durasi_tercepat = durasi
+            rute_tercepat = rute
+
+# Cetak rute tercepat
+if rute_tercepat:
+    print("Rute tercepat adalah:")
+    print(f"Dari: {rute_tercepat[0]}")
+    print(f"Ke: {rute_tercepat[1]}")
+    print(f"Jam naik: {rute_tercepat[2]}")
+    print(f"Jam turun: {rute_tercepat[3]}")
+else:
+    print("Tidak ada rute langsung yang tersedia")
