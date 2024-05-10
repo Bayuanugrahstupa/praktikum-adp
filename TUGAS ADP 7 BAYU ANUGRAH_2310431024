@@ -1,0 +1,51 @@
+# Inisialisasi jadwal kosong
+jadwal = []
+# Fungsi untuk membuat kegiatan baru
+def tambah_kegiatan(waktu_awal, waktu_akhir, deskripsi):
+    kegiatan_baru = {
+        "waktu_awal": waktu_awal,
+        "waktu_akhir": waktu_akhir,
+        "deskripsi": deskripsi
+    }
+    jadwal.append(kegiatan_baru)
+    print("Alhamdulillah, kerja tambahan sudah ditambahkan!")
+
+# Fungsi untuk menghapus kegiatan yang tidak perlu dilakukan berdasarkan deskripsi
+def hapus_kegiatan(deskripsi):
+    for kegiatan in jadwal:
+        if kegiatan["deskripsi"] == deskripsi:
+            jadwal.remove(kegiatan)
+            print("Kegiatan sudah Dihapus!")
+            return
+# Fungsi untuk menampilkan daftar jadwal kegiatan
+def tampilkan_jadwal():
+    if not jadwal:
+        print("Tidak Ada Jadwal.")
+    else:
+        print("Jadwal Kegiatan:")
+        for i, kegiatan in enumerate(jadwal, start=1):
+            print(f"{i}. Waktu: {kegiatan['waktu_awal']}-{kegiatan['waktu_akhir']}, Deskripsi: {kegiatan['deskripsi']}")
+
+# Contoh untuk tambahan kerja, semangat ya dan jangan mager ya
+tambah_kegiatan("05:00", "05:30", "Sholat shubuh")
+tambah_kegiatan("05:30", "06:30", "Buat tugas")
+tambah_kegiatan("08:00", "09:00", "Makan pagi")
+tambah_kegiatan("09:30", "13:30", "Kegiatan Kuliah")
+tambah_kegiatan("12:30", "13:00", "Sholat dzuhur")
+tambah_kegiatan("13:00", "14:00", "Makan Siang")
+tambah_kegiatan("14:00", "15:30", "Ikut Rapat UKO")
+tambah_kegiatan("15:30", "16:00", "Sholat Ashar")
+tambah_kegiatan("16:00", "17:00", "Olahraga")
+tambah_kegiatan("17:00", "18:30", "Tugas kelompok")
+tambah_kegiatan("18:30", "18:45", "Sholat Maghrib")
+tambah_kegiatan("18:45", "19:45", "Belajar")
+tambah_kegiatan("19:45", "20:00", "Sholat isya")
+tambah_kegiatan("20:00", "22:00", "Belajar lagi")
+tambah_kegiatan("22:00", "05:00", "Tidur")
+
+
+tampilkan_jadwal()
+
+hapus_kegiatan("Tidur")
+
+tampilkan_jadwal()
