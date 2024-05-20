@@ -1,0 +1,76 @@
+def Tambahkan_data_pasien( nl, um, jk, gd, rp, do):
+     with open("data.txt"," a") as  file:
+           file.write( f"{ nl},{ um},{ jk},{ gd},{ rp},{ do}")
+     print(" Data sudah ditambahkan") 
+     
+def Hapus_data_pasien( nl):
+    lines = [ ]
+    with open("data.txt"," r") as file:
+        lines = file.readlines() 
+    with open("data.txt"," w") as file:
+        for line in lines:
+           if notline.startswith( nl + ","):
+               file.write( line) 
+    print(" Data dihapus") 
+           
+def Edit_data_pasien( nl):
+       lines = [ ]
+       with open("data.txt"," r") as file: 
+           lines = file.readlines() 
+       with open("data.txt"," w") as file: 
+           for line in lines:
+                if line.startswith( nl+ ","): 
+                     nb =  input("Input nama baru :")  
+                     um =  input("Input umur : ")
+                     jk =  input("Jenis kelamin :")
+                     gd =  input("Golongan darah : ")
+                     rp =  input("Riwayat penyakit :")
+                     do =  input("Daftar obat :") 
+                     file.write( f"{ nl},{ um},{ jk},{ gd},{ rp},{ do}")
+                else:
+                     file.write(line)
+       print(" Data sudah diedit") 
+       
+def Tampilkan_data_pasien():
+    try: 
+        with open("data.txt"," r") as file:
+             data = file.read()
+             print("Data saat ini") 
+             print(data)
+    except FileNotFoundError:
+             print("Data tidak tersedia") 
+               
+def main():
+    while True: 
+       print(" ====  MENU UTAMA ==== ")
+       print(" 1. Tambahkan data pasien")
+       print(" 2. Hapus data pasien")
+       print(" 3. Edit data Pasien")
+       print(" 4. Tampilkan data pasien")
+       print(" 5. Keluar")
+       
+       pilih =  input(" Pilih opsi( 1/ 2/ 3/4/5)")  
+       if pilih == " 1":
+           nl =  input(" Nama lengkap") 
+           um =  input(" Umur")
+           jk =  input(" Jenis kelamin")
+          gd =  input(" Golongan darah")
+          rp =  input(" Riwayat penyakit")
+          do =  input(" Daftar obat") 
+          Tambahkan_data_pasien(nl, um, jk, gd, rp, do)
+       elif pilih == " 2" :
+          nl =  input("Nama yang dihapus") 
+          Hapus_data_pasien( nl)
+       elif pilih == " 3" :
+          nl =  input(" nama yang diedit")
+          Edit_data_pasien(nl)
+       elif pilih == " 4":
+          Tampilkan_data_pasien ()
+       elif pilih == " 5":
+         print(" Terima kasih telah mengisi data pasien")
+         break
+       else:
+         print(" Pilihan tidak valid")
+         
+if__name__== "__main,__"
+    main()
