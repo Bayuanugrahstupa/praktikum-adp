@@ -1,0 +1,49 @@
+# Untuk pembuatan bendera merah putih 
+from termcolor import colored, cprint
+import os
+
+os.system
+
+for i in range (1):
+     cprint(" " *40 , "red" , "on_red", end=" ")
+     print(" " *20 , end= " ")
+print()
+
+for i in range(1):
+    cprint(" "* 40, "white", "on_white", end= " ")
+    print(" "*20 , end= " ")
+print()
+
+# Untuk pembuatan bangunan rumah
+from termcolor import cprint
+
+def bangunan_rumah():
+    cprint('bangunan_rumah', 'green', attrs=['bold'])
+    print()
+    
+    cprint('                  //\\----------------------|      ' , 'yellow')
+    cprint('                 //  \\---------------------|      ' , 'yellow')
+    cprint('                //    \\--------------------|      ' , 'yellow')
+    cprint('               //      \\-------------------|      ' , 'yellow')
+    cprint('              //        \\------------------|      ' , 'yellow')
+    cprint('             //__________\\-----------------|      ' , 'yellow')
+    cprint('             |            |                 |      ' , 'red')
+    cprint('             |            |                 |      ' , 'red')
+    cprint('             |            |                 |      ' , 'red')
+    cprint('             |            |                 |      ' , 'red')
+    cprint('             ⟨————————————⟩⟨=================⟩      ' , 'blue')
+    cprint('             |            |                 |      ' , 'blue')
+    cprint('             |            |                 |      ' , 'blue')
+    cprint('             |---|---|    |      —————      |      ' , 'white')
+    cprint('             |---|---|    |     |     |     |      ' , 'white')
+    cprint('             |---|---|    |     |     |     |      ' , 'white')
+    cprint('             |            |     |_____|     |      ' , 'green')
+    cprint('             ⟨————————————⟩⟨—————————————————⟩      ' , 'black')           
+    cprint('             |            |                 |      ' , 'black')
+    cprint('             |——|—-|      |                 |      ' , 'black')
+    cprint('             |——|—-|      |     ------      |      ' , 'black')
+    cprint('             |——|—-|      |     |    |      |      ' , 'black')
+    cprint('             |            |     |    |      |      ' , 'black')
+    cprint('             |            |     |____|      |      ' , 'black')
+    cprint('             ⟨———————————————————————————————⟩     ' , 'black')
+bangunan_rumah()
