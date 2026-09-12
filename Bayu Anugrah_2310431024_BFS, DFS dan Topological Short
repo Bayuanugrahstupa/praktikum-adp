@@ -1,0 +1,386 @@
+# ============================================
+# PROGRAM: BREADTH FIRST SEARCH (BFS)
+# Mata Kuliah: Algoritma dan Pemrograman Graf
+# ============================================
+# Program ini menjalankan algoritma BFS menggunakan queue,
+# sekaligus menampilkan hasilnya dalam bentuk GAMBAR GRAF.
+# Hanya menggunakan matplotlib (tidak ada library tambahan/AI).
+
+from collections import deque
+import matplotlib.pyplot as plt
+
+# ------------------------------------------
+# 1. Representasi Graf (Adjacency List)
+# ------------------------------------------
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F'],
+    'D': ['B'],
+    'E': ['B', 'F'],
+    'F': ['C', 'E']
+}
+
+# ------------------------------------------
+# 2. Posisi Node (ditentukan manual)
+# ------------------------------------------
+posisi = {
+    'A': (2, 4),
+    'B': (0, 2.5),
+    'C': (4, 2.5),
+    'D': (0, 0.5),
+    'E': (2, 1),
+    'F': (4, 0.5)
+}
+
+# ------------------------------------------
+# 3. Fungsi BFS
+# ------------------------------------------
+def bfs(graph, start_node):
+    visited = set()
+    queue = deque([start_node])
+    visited.add(start_node)
+    urutan_kunjungan = []
+
+    print(f"Mulai BFS dari node: {start_node}\n")
+
+    while queue:
+        current_node = queue.popleft()
+        urutan_kunjungan.append(current_node)
+        print(f"Mengunjungi node: {current_node}")
+
+        for neighbor in graph[current_node]:
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.append(neighbor)
+                print(f"  -> Menambahkan {neighbor} ke antrian")
+
+    return urutan_kunjungan
+
+
+# ------------------------------------------
+# 4. Fungsi Gambar Graf (manual, tanpa networkx)
+# ------------------------------------------
+def gambar_graf(graph, posisi, urutan_kunjungan, start_node):
+    fig, ax = plt.subplots(figsize=(7, 6))
+
+    # --- Gambar semua garis edge terlebih dahulu ---
+    edge_sudah_digambar = set()
+    for node, tetangga_list in graph.items():
+        x1, y1 = posisi[node]
+        for tetangga in tetangga_list:
+            edge = tuple(sorted([node, tetangga]))
+            if edge not in edge_sudah_digambar:
+                x2, y2 = posisi[tetangga]
+                ax.plot([x1, x2], [y1, y2], color='gray', linewidth=1.5, zorder=1)
+                edge_sudah_digambar.add(edge)
+
+    # --- Siapkan warna tiap node berdasarkan urutan kunjungan ---
+    urutan_index = {node: i for i, node in enumerate(urutan_kunjungan)}
+    total = len(urutan_kunjungan)
+
+    # --- Gambar lingkaran (node) satu per satu ---
+    for node, (x, y) in posisi.items():
+        if node == start_node:
+            warna = '#e74c3c'  # merah untuk node awal
+        elif node in urutan_index:
+            # semakin belakang urutan kunjungan, semakin gelap hijaunya
+            tingkat = 0.4 + 0.5 * (urutan_index[node] / max(total - 1, 1))
+            warna = (0.15, min(tingkat, 1.0), 0.25)
+        else:
+            warna = '#bdc3c7'  # abu-abu jika belum dikunjungi
+
+        lingkaran = plt.Circle((x, y), 0.35, color=warna, zorder=2, ec='black')
+        ax.add_patch(lingkaran)
+        ax.text(x, y, node, ha='center', va='center',
+                 fontsize=13, fontweight='bold', color='white', zorder=3)
+
+        # Nomor urutan kunjungan ditulis di atas node
+        if node in urutan_index:
+            ax.text(x, y + 0.55, str(urutan_index[node] + 1),
+                     ha='center', va='center', fontsize=11,
+                     fontweight='bold', color='darkgreen', zorder=3)
+
+    ax.set_title(f"Visualisasi BFS (mulai dari node '{start_node}')\n"
+                 f"Urutan kunjungan: {' -> '.join(urutan_kunjungan)}")
+    ax.set_xlim(-1, 5)
+    ax.set_ylim(-0.5, 5)
+    ax.set_aspect('equal')
+    ax.axis('off')
+    plt.savefig("hasil_bfs.png", dpi=150, bbox_inches='tight')
+    plt.show()
+
+
+# ------------------------------------------
+# 5. Menjalankan Program
+# ------------------------------------------
+if __name__ == "__main__":
+    print("=== STRUKTUR GRAF ===")
+    for node, neighbors in graph.items():
+        print(f"{node} -> {neighbors}")
+    print()
+
+    start = 'A'  # Node awal BFS (bisa diganti sesuai kebutuhan)
+    hasil = bfs(graph, start)
+
+    print("\n=== HASIL AKHIR ===")
+    print("Urutan kunjungan BFS:", ' -> '.join(hasil))
+
+    # Tampilkan hasil dalam bentuk gambar graf
+    gambar_graf(graph, posisi, hasil, start)
+
+
+# ============================================
+# PROGRAM: DEPTH FIRST SEARCH (DFS)
+# Mata Kuliah: Algoritma dan Pemrograman Graf
+# ============================================
+# Versi ini TIDAK menggunakan library networkx (auto-layout),
+# posisi node ditentukan manual, dan gambar graf digambar
+# sendiri menggunakan matplotlib biasa (garis + lingkaran).
+# Library yang dipakai hanya matplotlib (standar untuk plotting).
+
+import matplotlib.pyplot as plt
+
+# ------------------------------------------
+# 1. Representasi Graf (Adjacency List)
+# ------------------------------------------
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F'],
+    'D': ['B'],
+    'E': ['B', 'F'],
+    'F': ['C', 'E']
+}
+
+# ------------------------------------------
+# 2. Posisi Node (ditentukan manual, bukan otomatis)
+# ------------------------------------------
+posisi = {
+    'A': (2, 4),
+    'B': (0, 2.5),
+    'C': (4, 2.5),
+    'D': (0, 0.5),
+    'E': (2, 1),
+    'F': (4, 0.5)
+}
+
+# ------------------------------------------
+# 3. Fungsi DFS (rekursif)
+# ------------------------------------------
+def dfs(graph, node, visited=None, urutan_kunjungan=None):
+    if visited is None:
+        visited = set()
+    if urutan_kunjungan is None:
+        urutan_kunjungan = []
+
+    visited.add(node)
+    urutan_kunjungan.append(node)
+    print(f"Mengunjungi node: {node}")
+
+    for neighbor in graph[node]:
+        if neighbor not in visited:
+            print(f"  -> Menelusuri lebih dalam ke {neighbor}")
+            dfs(graph, neighbor, visited, urutan_kunjungan)
+
+    return urutan_kunjungan
+
+
+# ------------------------------------------
+# 4. Fungsi Gambar Graf (manual, tanpa networkx)
+# ------------------------------------------
+def gambar_graf(graph, posisi, urutan_kunjungan, start_node):
+    fig, ax = plt.subplots(figsize=(7, 6))
+
+    # --- Gambar semua garis edge terlebih dahulu ---
+    edge_sudah_digambar = set()
+    for node, tetangga_list in graph.items():
+        x1, y1 = posisi[node]
+        for tetangga in tetangga_list:
+            edge = tuple(sorted([node, tetangga]))
+            if edge not in edge_sudah_digambar:
+                x2, y2 = posisi[tetangga]
+                ax.plot([x1, x2], [y1, y2], color='gray', linewidth=1.5, zorder=1)
+                edge_sudah_digambar.add(edge)
+
+    # --- Siapkan warna tiap node berdasarkan urutan kunjungan ---
+    urutan_index = {node: i for i, node in enumerate(urutan_kunjungan)}
+    total = len(urutan_kunjungan)
+
+    # --- Gambar lingkaran (node) satu per satu ---
+    for node, (x, y) in posisi.items():
+        if node == start_node:
+            warna = '#e74c3c'  # merah untuk node awal
+        elif node in urutan_index:
+            # semakin belakang urutan kunjungan, semakin gelap birunya
+            tingkat = 0.4 + 0.5 * (urutan_index[node] / max(total - 1, 1))
+            warna = (0.15, 0.35, min(tingkat, 1.0))
+        else:
+            warna = '#bdc3c7'  # abu-abu jika belum dikunjungi
+
+        lingkaran = plt.Circle((x, y), 0.35, color=warna, zorder=2, ec='black')
+        ax.add_patch(lingkaran)
+        ax.text(x, y, node, ha='center', va='center',
+                 fontsize=13, fontweight='bold', color='white', zorder=3)
+
+        # Nomor urutan kunjungan ditulis di atas node
+        if node in urutan_index:
+            ax.text(x, y + 0.55, str(urutan_index[node] + 1),
+                     ha='center', va='center', fontsize=11,
+                     fontweight='bold', color='darkred', zorder=3)
+
+    ax.set_title(f"Visualisasi DFS (mulai dari node '{start_node}')\n"
+                 f"Urutan kunjungan: {' -> '.join(urutan_kunjungan)}")
+    ax.set_xlim(-1, 5)
+    ax.set_ylim(-0.5, 5)
+    ax.set_aspect('equal')
+    ax.axis('off')
+    plt.savefig("hasil_dfs.png", dpi=150, bbox_inches='tight')
+    plt.show()
+
+
+# ------------------------------------------
+# 5. Menjalankan Program
+# ------------------------------------------
+if __name__ == "__main__":
+    print("=== STRUKTUR GRAF ===")
+    for node, neighbors in graph.items():
+        print(f"{node} -> {neighbors}")
+    print()
+
+    start = 'A'  # Node awal DFS (bisa diganti sesuai kebutuhan)
+    hasil = dfs(graph, start)
+
+    print("\n=== HASIL AKHIR ===")
+    print("Urutan kunjungan DFS:", ' -> '.join(hasil))
+
+    # Tampilkan hasil dalam bentuk gambar graf
+    gambar_graf(graph, posisi, hasil, start)
+
+
+
+# ============================================
+# PROGRAM: TOPOLOGICAL SORT
+# Mata Kuliah: Algoritma dan Pemrograman Graf
+# ============================================
+# Program ini mendemonstrasikan algoritma Topological Sort
+# pada graf berarah (directed graph) tanpa siklus (DAG),
+# menggunakan pendekatan DFS, sekaligus menampilkan hasilnya
+# dalam bentuk GAMBAR GRAF (visualisasi).
+
+# Jika di Google Colab, jalankan dulu (cukup sekali):
+# !pip install networkx matplotlib
+
+import networkx as nx
+import matplotlib.pyplot as plt
+
+# ------------------------------------------
+# 1. Representasi Graf Berarah (Adjacency List)
+# ------------------------------------------
+# Contoh kasus: urutan pengerjaan mata kuliah (prasyarat)
+# A -> B artinya A harus dikerjakan/diselesaikan sebelum B
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D'],
+    'C': ['D', 'F'],
+    'D': ['E'],
+    'E': [],
+    'F': ['E']
+}
+
+# ------------------------------------------
+# 2. Fungsi Topological Sort (DFS-based)
+# ------------------------------------------
+def topological_sort(graph):
+    visited = set()
+    stack = []  # menyimpan hasil urutan (dibalik di akhir)
+
+    def dfs(node):
+        visited.add(node)
+        for neighbor in graph[node]:
+            if neighbor not in visited:
+                print(f"  -> Menelusuri {node} ke {neighbor}")
+                dfs(neighbor)
+        stack.append(node)  # node dimasukkan setelah semua tetangganya selesai
+        print(f"Node selesai diproses: {node} (dimasukkan ke stack)")
+
+    for node in graph:
+        if node not in visited:
+            print(f"\nMulai DFS dari node: {node}")
+            dfs(node)
+
+    stack.reverse()  # urutan topological = kebalikan urutan selesai
+    return stack
+
+
+# ------------------------------------------
+# 3. Fungsi Visualisasi Graf (Gambar)
+# ------------------------------------------
+def gambar_graf(graph, urutan_topological):
+    G = nx.DiGraph()  # graf BERARAH
+
+    for node, neighbors in graph.items():
+        G.add_node(node)
+        for neighbor in neighbors:
+            G.add_edge(node, neighbor)
+
+    pos = nx.spring_layout(G, seed=42)
+
+    plt.figure(figsize=(7, 6))
+
+    # Gambar node & edge dasar
+    nx.draw(
+        G, pos,
+        with_labels=True,
+        node_color='lightgray',
+        node_size=1200,
+        font_size=12,
+        font_weight='bold',
+        edge_color='gray',
+        arrows=True,
+        arrowsize=20,
+        arrowstyle='-|>'
+    )
+
+    # Warnai node sesuai urutan topological (gradasi hijau)
+    colors = plt.cm.Greens(
+        [i / len(urutan_topological) * 0.7 + 0.3 for i in range(len(urutan_topological))]
+    )
+    nx.draw_networkx_nodes(
+        G, pos,
+        nodelist=urutan_topological,
+        node_color=colors,
+        node_size=1200
+    )
+
+    # Tambahkan label nomor urutan topological di atas tiap node
+    label_urutan = {node: str(i + 1) for i, node in enumerate(urutan_topological)}
+    for node, label in label_urutan.items():
+        x, y = pos[node]
+        plt.text(x, y + 0.12, label, fontsize=11, color='darkgreen',
+                  ha='center', fontweight='bold')
+
+    plt.title(f"Visualisasi Topological Sort\n"
+              f"Urutan: {' -> '.join(urutan_topological)}")
+    plt.axis('off')
+    plt.tight_layout()
+    plt.savefig("hasil_topological_sort.png", dpi=150)
+    plt.show()
+
+
+# ------------------------------------------
+# 4. Menjalankan Program
+# ------------------------------------------
+if __name__ == "__main__":
+    print("=== STRUKTUR GRAF BERARAH (DAG) ===")
+    for node, neighbors in graph.items():
+        print(f"{node} -> {neighbors}")
+
+    hasil = topological_sort(graph)
+
+    print("\n=== HASIL AKHIR ===")
+    print("Urutan Topological Sort:", ' -> '.join(hasil))
+
+    # Tampilkan hasil dalam bentuk gambar graf
+    gambar_graf(graph, hasil)
